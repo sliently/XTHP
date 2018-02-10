@@ -1,8 +1,12 @@
 # XTHP 1.0
 
 >名字想法来自一个人，想记住
-
-``` bash
+# 功能
+1.用户：包括登录、注册、个人信息管理、群组信息管理
+```
+1.用户申请
+```
+``` bash 
 # install dependencies
 npm install
 
