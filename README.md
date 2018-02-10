@@ -14,9 +14,10 @@
 
 ### 预览
 
-![预览](./doc/images/preview1.png)
-![预览](./doc/images/preview2.png) 
-![预览](./doc/images/preview3.png)
+![预览](./doc/images/view1.png)
+![预览](./doc/images/view2.png) 
+![预览](./doc/images/view3.png)
+![预览](./doc/images/view4.png)
 
 ### 安装
 
