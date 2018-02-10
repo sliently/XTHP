@@ -1,9 +1,6 @@
-# vue
+# XTHP 1.0
 
->使用vue2.0和nodejs+mysql开发的一个聊天系统
-这是一个聊天室
-下载文件使用node
-## Build Setup
+>名字想法来自一个人，想记住
 
 ``` bash
 # install dependencies
