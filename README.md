@@ -3,7 +3,7 @@
 ![node](https://img.shields.io/badge/node-v6.2.2-yellow.svg)
 ![react](https://img.shields.io/badge/vue-2.0.0+-yellow.svg)
 
->名字想法来自一个人，想记住[快速进入](http://123.207.239.16)
+>名字想法来自一个人，想记住[快速进入](http://123.207.239.16) UI来自一位学长的项目，受到启发
 
 ### 功能
 
