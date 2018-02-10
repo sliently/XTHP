@@ -3,7 +3,7 @@
 ![node](https://img.shields.io/badge/node-v6.2.2-yellow.svg)
 ![react](https://img.shields.io/badge/vue-2.0.0+-yellow.svg)
 
->名字想法来自一个人，想记住
+>名字想法来自一个人，想记住[快速进入](https://123.207.239.16)
 
 ### 功能
 
@@ -42,6 +42,6 @@ git clone https://github.com/HaipingXiaotong/XTHP.git
 ```
 
 ### 后续 
-1.作者本人一直想实现语音以及视频信息,将完善这一点
+1.作者本人一直想实现语音以及视频信息,将完善这一点<br>
 2.诸多不足，谢谢指出，交流邮箱847186328@qq.com
 
