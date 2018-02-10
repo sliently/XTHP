@@ -1,6 +1,6 @@
 # vue
 
-> A Vue.js project
+>使用vue2.0和nodejs+mysql开发的一个聊天系统
 这是一个聊天室
 下载文件使用node
 ## Build Setup
