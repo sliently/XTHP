@@ -1,7 +1,8 @@
 # vue
 
 > A Vue.js project
-
+这是一个聊天室
+下载文件使用node
 ## Build Setup
 
 ``` bash
