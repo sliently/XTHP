@@ -40,3 +40,8 @@ git clone https://github.com/HaipingXiaotong/XTHP.git
 
 如以上端口占用 请重新设置端口 set port = ' '
 ```
+
+### 后续 
+1.作者本人一直想实现语音以及视频信息,将完善这一点
+2.诸多不足，谢谢指出，交流邮箱847186328@qq.com
+
