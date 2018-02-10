@@ -20,12 +20,23 @@
 ![预览](./doc/images/view4.png)
 
 ### 安装
+  前后台分离，因此需分别安装
 
 ``` bash 
-git clone ...............
-cd XTHP
-npm install
+git clone https://github.com/HaipingXiaotong/XTHP.git
+启动客户端
 
+ cd XTHP/app 定位目录到app
+ npm install 安装插件
+ npm run dev 启动客户端服务
+ 客户端本地端口localhost:8080
+
+启动服务端
+
+ cd XTHP/server 定位目录到server目录下
+ npm install 安装插件
+ npm start 启动服务端
+ 监听端口为localhost:3000
+
+如以上端口占用 请重新设置端口 set port = ' '
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
