@@ -1,5 +1,5 @@
 # XTHP 1.0
-[![author](https://img.shields.io/badge/author-HP%E6%B5%B7%E5%B9%B3-brightgreen.svg)](https://github.com/HaipingXiaotong/XTHP)
+[![author](https://img.shields.io/badge/author-HP%E6%B5%B7%E5%B9%B3-brightgreen.svg)](https://github.com/HaipingXiaotong)
 ![node](https://img.shields.io/badge/node-v6.2.2-yellow.svg)
 ![react](https://img.shields.io/badge/vue-2.0.0+-yellow.svg)
 
