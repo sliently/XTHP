@@ -1,30 +1,59 @@
 <template>
   <div class="login">
-      <transition name="bounce" mode="out-in">
-        <mu-paper v-if="hh" class="login-border" :zDepth="1">
-            <div class="title">登   录</div>
-            <mu-text-field class="sign" type="email" @blur="watchUser" label="账号" :errorText="errs" v-model="user_email" labelFloat/><br>
-            <mu-text-field label="密码" type="password" v-model="user_psw" labelFloat/>
-            <div style="width:100%;height:40px;position:relative;">
-                <button class="loginSubit" @click.enter="login">登录</button>
+      <div class="pane-login">
+          <div class="pane-logo">
+              <img src="http://lhp313-1253555032.coscd.myqcloud.com/static/logo.png" alt="logo">
+          </div>
+          <transition name="bounce" mode="out-in">
+            <div v-if="sign" key="login" class="signpad">
+                <div class="sign-controls">
+                    <mu-text-field hintText="邮箱"
+                                type="email"
+                                :fullWidth="true"
+                                v-model="user_email"
+                                icon="email"/>
+                </div>
+                <div class="sign-controls">
+                    <mu-text-field hintText="密码"
+                                type="password"
+                                :fullWidth="true"
+                                v-model="user_psw"
+                                icon="https"/>
+                </div>
+                <div class="sign-action">
+                    <mu-flat-button label="注册" @click.native="toggle"/>&nbsp;
+                    <mu-raised-button label="登录" @click="login" primary/>
+                </div>
             </div>
-            <div style="position:absolute;bottom:10px;right:10px;">
-                <mu-icon-button @click="toggle" icon="autorenew"/> 
+            <div v-else key="create" class="signpad">
+                <div class="sign-controls">
+                    <mu-text-field hintText="邮箱"
+                                type="email"
+                                :fullWidth="true"
+                                v-model="user_email"
+                                icon="email"/>
+                </div>
+                <div class="sign-controls">
+                    <mu-text-field hintText="名字"
+                                type="text"
+                                :fullWidth="true"
+                                v-model="user_name"
+                                icon="people"/>
+                </div>
+                <div class="sign-controls">
+                    <mu-text-field hintText="密码"
+                                type="password"
+                                :fullWidth="true"
+                                v-model="user_psw"
+                                icon="https"/>
+                </div>
+                <div class="sign-action">
+                    <mu-raised-button label="注册" @click.enter="create" primary/>&nbsp;
+                    <mu-flat-button label="登录" @click.native="toggle" />
+                </div>
             </div>
-        </mu-paper>
-        <mu-paper v-else class="login-border" :zDepth="1">
-            <div class="title">注  册</div>
-            <mu-text-field class="sign" label="账号" @blur="watchUser" :errorText="errs" v-model="user_email" labelFloat/><br>
-            <mu-text-field class="sign" label="name" v-model="user_name" labelFloat/><br>
-            <mu-text-field label="密码" type="password" v-model="user_psw" labelFloat/>
-            <div style="width:100%;height:40px;position:relative;">
-                <button class="loginSubit" @click.enter="create">注册</button>
-            </div>
-            <div style="position:absolute;bottom:10px;right:10px;">
-                <mu-icon-button @click="toggle" icon="autorenew"/> 
-            </div>
-        </mu-paper>
-      </transition>
+          </transition>
+      </div>
   </div>
 </template>
 <script>
@@ -36,13 +65,12 @@ export default {
           user_psw:'',
           user_token:null,
           user_name:'',
-          hh:true,
-          errs:""
+          sign:true
       }
   },
   methods:{
       toggle(){
-          this.hh=!this.hh
+          this.sign=!this.sign
       },
       create(){
           if(this.user_email.length=='' && this.user_psw=='' && this.user_name==''){
@@ -52,7 +80,6 @@ export default {
           }
           let re = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
           if(!re.test(this.user_email)){
-              this.errs = "请输入正确邮箱"
               let hint = "请输入正确邮箱"
             this.$store.commit('showToasts',{toast:true,msg:hint})
               return
@@ -64,7 +91,12 @@ export default {
             email: this.user_email
           },function(data){
               if(data.isError){
+                  if(data.errMsg=='ERROR1002'){
+                    let hint = "该邮箱被注册"
+                    that.$store.commit('showToasts',{toast:true,msg:hint})      
+                  }
                   console.log(data.errMsg)
+                  return
               }
             let hint = "注册成功"
             that.$store.commit('showToasts',{toast:true,msg:hint})
@@ -75,7 +107,6 @@ export default {
       login(){
           let re = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
           if(!re.test(this.user_email)){
-              this.errs = "请输入正确邮箱"
               let hint = "请输入正确邮箱"
                 this.$store.commit('showToasts',{toast:true,msg:hint})
               return
@@ -94,14 +125,6 @@ export default {
             that.$cookies.set('user',data.token)
             that.user_token=that.$cookies.get('user')
           })
-      },
-      watchUser(){
-          let re = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
-          if(re.test(this.user_email)){
-              this.errs = ""
-          }else{
-              this.errs = "请输入正确邮箱"
-          }
       }
   },
   watch:{
@@ -111,56 +134,71 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .bounce-enter-active {
-  animation: bounce-in .5s;
+  animation: bounce-out .3s;
 }
 .bounce-leave-active {
-  animation: bounce-in .5s reverse;
+  animation: bounce-in .3s ;
 }
 @keyframes bounce-in {
   0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.5);
+    opacity: 1;
+    transform: translateX(0)
   }
   100% {
-    transform: scale(1);
+    opacity: 0;
+    transform: translateX(-300px)
+  }
+}
+@keyframes bounce-out {
+  0% {
+    opacity: 0;
+    transform: translateX(300px)
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0)
   }
 }                                                               
 .login{
     position: relative;
     height: 100%;
     width: 100%;
-    background: #eee;
-    .login-border{
-        position: relative;
-        margin: 0 auto;
-        top: 150px;
-        width: 300px;
+    background: rgba(0,0,0,.298039);
+    display: flex;
+    justify-content: center;
+    .pane-login{
+        margin:0 auto;
+        max-width: 400px;
+        width: 90%;
         height: auto;
-        padding: 30px;
-        .title{
-            font-family: 华文彩云;
-            text-align: center;
-            color: red;
-            font-size: 30px;
+        padding-top: 50px;
+        .signpad{
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px 30px;
+            width: 100%;
+            .sign-controls{
+                width: 100%;
+                .mu-text-field{
+                    border: 2px solid rgba(76, 75, 75, 0.21);
+                }
+            }
+            .sign-action{
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 30px;
+                padding: 5px 10px;
+            }
         }
-        .loginSubit{
-            cursor: pointer;
-            position: relative;
-            left: 20px;
-            width: 80%;
-            height: 30px;
-            outline: none;
-            color: #fff;
-            background: #212121;
-            border: none;
-            border-radius: 15px;
-            margin: 0 auto;
+        .pane-logo{
+            text-align: center;
+            img{
+                max-width: 300px;
+                width: 60%;
+            }
         }
     }
-    
 }
 </style>
