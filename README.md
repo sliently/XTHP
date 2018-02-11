@@ -3,7 +3,7 @@
 ![node](https://img.shields.io/badge/node-v6.2.2-yellow.svg)
 ![react](https://img.shields.io/badge/vue-2.0.0+-yellow.svg)
 
->名字想法来自一个人，想记住
+>名字想法来自一个人，想记住[快速进入](http://123.207.239.16) UI来自一位学长的项目，受到启发
 
 ### 功能
 
@@ -20,12 +20,28 @@
 ![预览](./doc/images/view4.png)
 
 ### 安装
+  前后台分离，因此需分别安装
 
 ``` bash 
-git clone ...............
-cd XTHP
-npm install
+git clone https://github.com/HaipingXiaotong/XTHP.git
+启动客户端
 
+ cd XTHP/app 定位目录到app
+ npm install 安装插件
+ npm run dev 启动客户端服务
+ 客户端本地端口localhost:8080
+
+启动服务端
+
+ cd XTHP/server 定位目录到server目录下
+ npm install 安装插件
+ npm start 启动服务端
+ 监听端口为localhost:3000
+
+如以上端口占用 请重新设置端口 set port = ' '
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### 后续 
+1.作者本人一直想实现语音以及视频信息,将完善这一点<br>
+2.诸多不足，谢谢指出，交流邮箱847186328@qq.com
+
