@@ -13,7 +13,7 @@
                     slot="right">
             <mu-menu-item title="创建群组" @click.native="showNewGroup" />
             <mu-menu-item title="用户资料" @click.native="showPersonIndex" />
-            <mu-menu-item title="设置"/>
+            <mu-menu-item title="设置" @click.native="showSetUp"/>
             <mu-menu-item @click="exitUser" title="退出" />
         </mu-icon-menu>
         <mu-icon-button name="close" @click="showHistoryMessage" icon="close" iconClass="Header-colors" slot="right"/>
@@ -28,7 +28,12 @@ export default {
       ...mapState(['self'])
   },
   methods:{
-      ...mapMutations(['showNewGroup','showPersonIndex','showHistoryMessage','deleteUserToken','showPanePerson']),
+      ...mapMutations(['showNewGroup',
+                    'showPersonIndex',
+                    'showHistoryMessage',
+                    'deleteUserToken',
+                    'showPanePerson',
+                    'showSetUp']),
       exitUser(){
           this.$socket.emit('exitUser',this.self.User_id,(info)=>{
               console.log(1)

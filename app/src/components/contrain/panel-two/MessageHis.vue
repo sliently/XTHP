@@ -1,7 +1,7 @@
 <template>
   <div class="history">
     <my-dialog-one ref="list"></my-dialog-one>
-    <my-back-bottom :scrollRef="scrollRef" :height="comScrollHeight" :durations="200"></my-back-bottom>
+    <my-back-bottom v-if="" :scrollRef="scrollRef" :height="comScrollHeight" :durations="200"></my-back-bottom>
   </div>
 </template>
 <script>

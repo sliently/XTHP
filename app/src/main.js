@@ -17,7 +17,7 @@ import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
     // socket插件引入
 import VueSocketio from 'vue-socket.io';
-Vue.use(VueSocketio, 'http://localhost:3000', store);
+Vue.use(VueSocketio, 'http://123.207.239.16', store);
 // cookie插件引入
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)

@@ -5,7 +5,9 @@
         </mu-appbar>
         <div ref="query" class="Profile-body">
             <my-search @query="queryPer"></my-search>
-            <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="onlLineQuery" />
+            <div v-if="refreshing" style="margin:15px auto;display:flex;justify-content: center;">
+                <mu-circular-progress :size="30"/>
+            </div>
             <div class="message-list">
                 <mu-list v-if="!refreshing">
                     <template v-for="item in offline">
@@ -34,9 +36,6 @@ export default {
           refreshing:false
       }
   },
-    mounted () {
-    this.trigger = this.$refs.query
-  },
   computed:{
       ...mapState(['panePerson','onLine']),
       offline(){
@@ -57,10 +56,8 @@ export default {
           this.setMsgPerson(item)
           this.getHistory(this)
       },
-      onlLineQuery(){
-          this.refreshing = false
-      },
       queryPer(val){
+          this.refreshing = true
           this.$socket.emit('queryPer',val,(info)=>{
             if (info.isError) {
                 console.log(info.errMsg)

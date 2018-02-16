@@ -1,14 +1,25 @@
 <template>
   <div class="pane-left">
-      <transition name="bounce">
-        <div v-if="personIndex" class="manager">
+      <transition name="bounce" mode="out-in">
+          <!-- 个人信息 -->
+        <div v-if="personIndex" key="personIndex" class="manager">
             <my-person-index></my-person-index>
         </div>
+        <!-- 搜索朋友 -->
         <div v-if="panePerson" class="manager">
             <my-pane-person></my-pane-person>
         </div>
+        <!-- 新建群组 -->
         <div v-if="newGroup" class="manager">
             <my-new-group></my-new-group>
+        </div>
+        <!-- 设置 -->
+        <div v-if="setUp" key="setUp" class="manager">
+            <my-set-up></my-set-up>
+        </div>
+        <!-- 设置通知 -->
+        <div v-if="setUpNotice" class="manager">
+            <my-set-up-notice></my-set-up-notice>
         </div>
       </transition>
   </div>
@@ -18,15 +29,19 @@ import {mapState,mapMutations} from 'vuex'
 import MyPersonIndex from './personIndex/personIndex'
 import MyPanePerson from './panePerson/panePerson'
 import MyNewGroup from './newGroup/newGroup'
+import MySetUp from './setUp/setup'
+import MySetUpNotice from './setUp/notive'
 export default {
   name:"paneLeft",
   components:{
       MyPersonIndex,
       MyPanePerson,
-      MyNewGroup
+      MyNewGroup,
+      MySetUp,
+      MySetUpNotice
   },
   computed:{
-      ...mapState(['personIndex',"panePerson","newGroup"])
+      ...mapState(['personIndex',"panePerson","newGroup",'setUp','setUpNotice'])
   },
   methods:{
       ...mapMutations(['showPersonIndex','showPanePerson'])

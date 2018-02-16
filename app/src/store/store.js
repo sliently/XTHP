@@ -26,6 +26,10 @@ let state = {
     panePerson: false,
     // 创建群组
     newGroup: false,
+    // 显示设置
+    setUp: false,
+    // zz设置通知
+    setUpNotice: false,
     //rightAside显示
     rightIndex: false,
     // 群组信息显示

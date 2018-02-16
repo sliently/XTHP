@@ -9,29 +9,36 @@
             <span class="time">{{item.time}}</span>
         </span>
         <div class="message-content">
+            <span>
+                <div :class="`${item.UserTriangle}-outer`"></div>
+                <div :class="`${item.UserTriangle}-inner`"></div>
+            </span>
             <span class="msg">
-                <span v-if="item.type==0" v-html="msg"></span>
+                <span v-if="item.type==0" v-html="handleMsg(item)"></span>
                 <span v-if="item.type==1">
                     <img class="img" @click="showBig" :src="item.message" alt="无法显示">
                     <my-picture v-if="Big" :src="item.message" @close="hideBig"></my-picture>
                 </span>
-                <div v-if="item.type==2 && file!=null" class="file">
+                <div v-if="item.type==2" class="file">
                     <mu-icon value="insert_drive_file" color="blue" :size="40"/>
                     <div class="file-name">
-                        <p class="textOver">{{file.fileName}}</p>
-                        <p class="fileSize textOver">{{file.fileSize}}</p>
+                        <p class="textOver">{{updateMsg(item.message).fileName}}</p>
+                        <p class="fileSize textOver">{{updateMsg(item.message).fileSize}}</p>
                     </div>
-                    <a :href="file.src">
+                    <a :href="updateMsg(item.message).src">
                         <mu-icon value="cloud_download" color="#999" :size="40"/>
                     </a>
                 </div>
+            </span>
+            <span v-if="item.ZeroHour" :class="item.UserIconSlot" style="display:block;background:none;">
+                <mu-circular-progress :size="20" color="rgba(76, 157, 226, 0.88)"/>
             </span>
             <span ref="bottom" @click="toggle" :class="item.UserIconSlot">
                 <mu-icon :size="20" color="#eee" value="more_horiz"/>
             </span>
             <mu-popover :trigger="trigger" @close="handleClose" :open="open">
                 <mu-menu>
-                    <mu-menu-item title="发送消息" />
+                    <mu-menu-item @click.native="sendMsg(item)" title="发送消息" />
                     <mu-menu-item v-if="item.UserIconSlot==='more-right'" @click="withdraw" title="撤回消息" />
                 </mu-menu>
             </mu-popover>
@@ -40,6 +47,7 @@
   </div>
 </template>
 <script>
+import {mapState,mapMutations,mapActions} from 'vuex'
 import {IsURL} from '@/common/js/help'
 import MyPicture from '@/components/common/Picture'
 export default {
@@ -62,60 +70,42 @@ export default {
           open:false,
           trigger:null,
           msg:null,
-          file:null,
           Big:false
       }
-  },
-  created(){
-      this.updateMsg()
   },
   mounted(){
       this.trigger = this.$refs.bottom
   },
   methods:{
+      ...mapMutations(['setAjax','setMsgPerson','closeRightIndex']),
+      ...mapActions(['getHistory','addTemporary']),
       showBig(){
           this.Big = true
       },
       hideBig(){
             this.Big = false
       },
-      updateMsg(){
-          if(this.item.type==1){
-              return
-          }
-          if(this.item.type==2){
-              this.file =JSON.parse(this.item.message)
-              return
-          }
+      updateMsg(obj){
+            ;let file =JSON.parse(obj)
+            return file
+      },
+      toggle(){
+          this.open = !this.open
+      },
+      handleMsg(item){
           let Rex = /(#)\{[\u4e00-\u9fa5]{1,}\}/g
-          this.msg = this.item.message
-          let arr = this.item.message.match(Rex)
-          if(Rex.test(this.item.message)){
+          let msg = item.message
+          let arr = item.message.match(Rex)
+          if(Rex.test(item.message)){
               let chinese = /[\u4e00-\u9fa5]{1,}/g
               for(let i=0;i<arr.length;i++){
                 //   匹配里面的中文
                 let now = arr[i].match(chinese)
                 let ele = `<img src='http://lhp313-1253555032.coscd.myqcloud.com/static/emoil/${now}.gif' alt = ${now}/>`
-                this.msg = this.msg.replace(arr[i],ele)
+                msg = msg.replace(arr[i],ele)
               }
           }
-        //   this.msg = this.item.message
-        //   let Rex = IsURL()
-        //   if(false){
-        //       let href
-        //       if(Rex.exec(msg)[1]){
-        //           href = Rex.exec(msg)[0]
-        //       }else{
-        //           href = 'http://'+Rex.exec(msg)[0]
-        //       }
-        //       let rep ="<a href="+href+" target='_blank'>"+Rex.exec(msg)[0]+"</a>"
-        //       this.msg = msg.replace(Rex,rep)
-        //   }else{
-        //       this.msg = msg
-        //   }
-      },
-      toggle(){
-          this.open = !this.open
+            return msg
       },
       handleClose(e){
           this.open = false
@@ -149,11 +139,13 @@ export default {
                   this.$store.commit('showToasts',{toast:true,msg:msgs})
               }
           })
-      }
-  },
-  filters:{
-      emoil(val){
-          if(!val)return ''
+      },
+      sendMsg(item){
+        this.closeRightIndex()
+        this.setAjax(true)
+        this.addTemporary({user_id:item.User_id,that:this})
+        this.setMsgPerson(item)
+        this.getHistory(this)
       }
   }
 }
@@ -198,6 +190,46 @@ export default {
             display: inline-flex;
             max-width: 90%;
             align-items: flex-end;
+            .triangle-left-outer{
+                position: absolute;
+                border-right: 10px solid #ccc;
+                transform: rotate(20deg);
+                border-top: 2px solid transparent; 
+                border-bottom: 7px solid transparent;
+                left: -9px;
+                top: 5px;
+                z-index: 10;
+            }
+            .triangle-left-inner{
+                position: absolute;
+                border-right: 10px solid #fff;
+                transform: rotate(20deg);
+                border-top: 2px solid transparent; 
+                border-bottom: 7px solid transparent;
+                left: -7px;
+                top: 6px;
+                z-index: 10;
+            }
+            .triangle-right-outer{
+                position: absolute;
+                border-left: 10px solid #ccc;
+                transform: rotate(-20deg);
+                border-top: 2px solid transparent; 
+                border-bottom: 7px solid transparent;
+                right: -9px;
+                top: 5px;
+                z-index: 10;
+            }
+            .triangle-right-inner{
+                position: absolute;
+                border-left: 10px solid #fff;
+                transform: rotate(-20deg);
+                border-top: 2px solid transparent; 
+                border-bottom: 7px solid transparent;
+                right: -7px;
+                top: 6px;
+                z-index: 10;
+            }
             .msg{
                 position: relative;
                 word-break: break-all;

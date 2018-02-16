@@ -128,8 +128,17 @@ const mutations = {
         })
 
     },
-    addHistory: (state, info) => {
-        state.messageList.push(info)
+    addHistory: (state, { info, ZeroHour }) => {
+        if (!ZeroHour) {
+            state.messageList.push(info)
+            return
+        }
+        state.messageList.forEach((item, index, arr) => {
+            if (item.ZeroHour && item.ZeroHour === ZeroHour) {
+                arr.splice(index, 1, info)
+                return
+            }
+        })
     },
     deleteDialogue: (state, info) => {
         state.dialogue.forEach((item, index, arr) => {
@@ -159,6 +168,7 @@ const mutations = {
     },
     // 显示个人信息页
     showPersonIndex: (state) => {
+        state.setUp = false
         state.personIndex = !state.personIndex
     },
     showPanePerson: (state) => {
@@ -167,6 +177,15 @@ const mutations = {
     // 创建群组显示页
     showNewGroup: (state) => {
         state.newGroup = !state.newGroup
+    },
+    // 创建群组显示页
+    showSetUp: (state) => {
+        state.setUp = !state.setUp
+    },
+    // 显示设置通知页面
+    showSetUpNotice: (state) => {
+        state.setUp = false
+        state.setUpNotice = !state.setUpNotice
     },
     // 展示群组信息或者群组信息页
     showRightIndex: (state) => {
@@ -215,9 +234,6 @@ const mutations = {
     // 设置对话在线
     setOnLine: (state, info) => {
         state.onLine = info
-    },
-    SOCKET_CONNECT: (state, status) => {
-        console.log("连接成功")
     }
 }
 export default mutations

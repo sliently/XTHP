@@ -37,6 +37,7 @@
 import {getFileSize} from '@/common/js/help'
 import pasteFun from './clipboardData'
 import MyEmoil from '../../common/emoil'
+import handleMsg from './handleMsg'
 export default {
   name:"sendMessage",
   components:{
@@ -55,9 +56,6 @@ export default {
               this.sendMessage(1,data)
           })
       })
-  },
-  beforeDestroy(){
-    //   this.$refs.msgInput.$el.removeEventListener('paste')
   },
   methods:{
       addEmoil(val){
@@ -87,7 +85,8 @@ export default {
           if(type==0){
               message = this.message
           }
-          this.$store.dispatch('sendMessage',{message,type,that:this})
+          let ZeroHour = handleMsg.call(this,{message,type})
+          this.$store.dispatch('sendMessage',{message,type,ZeroHour,that:this})
           this.message = ""
       },
       sendImg(){

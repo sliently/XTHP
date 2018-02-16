@@ -47,7 +47,10 @@ methods:{
     border: 1px solid #eee;
     height: 49px;
     line-height: 49px;
-    
+    .mu-icon{
+        transition: all 0.9s ease-in-out;
+        transform: rotate(90deg);
+    }
 }
 .search-input-active{
     box-shadow: 0 2px 3px rgba(0,0,0,.07);
@@ -59,6 +62,7 @@ methods:{
         color:#666;
     }
     .search-icon-active{
+        transform: rotate(0);
         color:rgba(27, 155, 177, 0.79);
     }
 }

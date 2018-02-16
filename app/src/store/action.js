@@ -127,14 +127,14 @@ const actions = {
     },
     // 发送信息
     sendMessage: ({ state, commit }, obj) => {
-        let { message, type, that } = obj
+        let { message, type, ZeroHour, that } = obj
         that.$socket.emit('sendMessage', { UserObj: state.msgPerson, message: message, type: type, token: state.user_token }, (info) => {
             if (info.isError) {
                 console.log(info.errMsg)
                 return
             }
             commit('updateTemporary', { info, is: false, to: true })
-            commit('addHistory', info.msg)
+            commit('addHistory', { info: info.msg, ZeroHour })
             return
         })
     },
