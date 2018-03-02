@@ -1,7 +1,7 @@
 <template>
   <div class="history">
     <my-dialog-one ref="list"></my-dialog-one>
-    <my-back-bottom v-if="" :scrollRef="scrollRef" :height="comScrollHeight" :durations="200"></my-back-bottom>
+    <my-back-bottom :scrollRef="scrollRef" :height="comScrollHeight" :durations="200"></my-back-bottom>
   </div>
 </template>
 <script>
@@ -35,7 +35,7 @@ export default {
   overflow: auto;
   -webkit-overflow-scrolling : touch;
   width: 100%;
-  height: calc(~"100% - 124px");
+  height: calc(~"100% - 104px");  
     // 滚动条样式
   &::-webkit-scrollbar {//滚动条的宽度
       .scrollbar
@@ -44,5 +44,10 @@ export default {
       .scrollbar-thumb
   }
 }
+  @media (min-width: 480px){
+    .history{
+      height: calc(~'100% - 112px');
+    }
+  }
 </style>
 

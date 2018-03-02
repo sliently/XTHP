@@ -86,7 +86,6 @@ export default {
               message = this.message
           }
           let ZeroHour = handleMsg.call(this,{message,type})
-          this.$store.dispatch('sendMessage',{message,type,ZeroHour,that:this})
           this.message = ""
       },
       sendImg(){
@@ -133,10 +132,11 @@ export default {
 .sendMessage{
     position: absolute;
     bottom: 0;
-    height: 60px;
+    height: 48px;
     width: 100%;
-    line-height: 60px;
+    line-height: 48px;
     background-color: rgb(238, 238, 238);
+    display: flex;
     .inputSend{
         position: relative;
         height: 100%;

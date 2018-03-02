@@ -4,7 +4,7 @@
           <div class="pane-logo">
               <img src="http://lhp313-1253555032.coscd.myqcloud.com/static/logo.png" alt="logo">
           </div>
-          <transition name="bounce" mode="out-in">
+          <transition name="login" mode="out-in">
             <div v-if="sign" key="login" class="signpad">
                 <div class="sign-controls">
                     <mu-text-field hintText="邮箱"
@@ -134,14 +134,14 @@ export default {
   }
 }
 </script>
-<style lang="less">
-.bounce-enter-active {
-  animation: bounce-out .3s;
+<style lang="less" scoped>
+.login-enter-active {
+  animation: login-out .3s;
 }
-.bounce-leave-active {
-  animation: bounce-in .3s ;
+.login-leave-active {
+  animation: login-in .3s ;
 }
-@keyframes bounce-in {
+@keyframes login-in {
   0% {
     opacity: 1;
     transform: translateX(0)
@@ -151,7 +151,7 @@ export default {
     transform: translateX(-300px)
   }
 }
-@keyframes bounce-out {
+@keyframes login-out {
   0% {
     opacity: 0;
     transform: translateX(300px)
@@ -167,7 +167,6 @@ export default {
     width: 100%;
     background: rgba(0,0,0,.298039);
     display: flex;
-    justify-content: center;
     .pane-login{
         margin:0 auto;
         max-width: 400px;

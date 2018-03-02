@@ -11,10 +11,7 @@ import axios from 'axios'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 Vue.use(MuseUI)
-Vue.config.productionTip = false
-    // 剪切板插件
-import VueClipboard from 'vue-clipboard2'
-Vue.use(VueClipboard)
+Vue.config.productionTip = true
     // socket插件引入
 import VueSocketio from 'vue-socket.io';
 Vue.use(VueSocketio, 'http://123.207.239.16', store);

@@ -71,10 +71,18 @@
                 </div>
             </div>
         </mu-paper>
+        <mu-paper v-if="group.GroupAdmin?false:true" class="groupNum signOut" :zDepth="1">
+            <div class="groupWord">
+                <div style="padding:5px;">
+                <mu-icon :color="group.sltShield?'rgba(64, 183, 57, 0.78)':'#999'" value="block" :size="30"/>
+                </div>
+                <div @click="Shield_user" class="out" :style="group.sltShield?'color:rgba(64, 183, 57, 0.78)':'color:#999'">{{group.sltShield?'解除屏蔽':'屏蔽用户'}}</div>
+            </div>
+        </mu-paper>
         <mu-paper class="groupNum signOut" :zDepth="1">
             <div class="groupWord">
                 <div style="padding:5px;">
-                <img src="/static/image/signout.png" alt="">  
+                <img src="/static/image/signout.png" alt="退出">  
                 </div>
                 <div @click="deleteMsg" class="out">{{group.GroupAdmin?'退出群组':'删除对话'}}</div>
             </div>
@@ -86,7 +94,7 @@
 import {mapState,mapMutations} from 'vuex'
 import MyAvatar from '@/components/common/MyAvatar'
 export default {
-  name:'group',
+  name:'Group',
   components:{
       MyAvatar
   },
@@ -97,7 +105,7 @@ export default {
       }
   },
   computed:{
-      ...mapState(['ifAjax','group','isMsgPerson','self'])
+      ...mapState(['group','isMsgPerson','self'])
   },
   methods:{
     ...mapMutations(['showRightInvite','showToasts']),
@@ -141,6 +149,9 @@ export default {
      deleteMsg(){
         this.$store.dispatch('deleteMsg',this)
         this.$store.commit('closeRightIndex')
+      },
+      Shield_user(){
+          this.$store.dispatch('Shield_user',this)
       }
   }
 }

@@ -26,7 +26,7 @@
                         <span>通知</span>
                     </div>
                 </div>
-                <div class="setUp-item">
+                <div class="setUp-item" @click="showToasts">
                     <div class="rrzlm">
                         <mu-icon value="wallpaper" :size="24"/>
                     </div>
@@ -34,7 +34,7 @@
                         <span>对话壁纸</span>
                     </div>
                 </div>
-                <div class="setUp-item">
+                <div class="setUp-item" @click="getSltShield">
                     <div class="rrzlm">
                         <mu-icon value="block" :size="24"/>
                     </div>
@@ -42,7 +42,7 @@
                         <span>屏蔽对象</span>
                     </div>
                 </div>
-                <div class="setUp-item">
+                <div class="setUp-item" @click="showToasts">
                     <div class="rrzlm">
                         <mu-icon value="help" :size="24"/>
                     </div>
@@ -62,7 +62,14 @@ computed:{
     ...mapState(['self'])
 },
 methods:{
-    ...mapMutations(['showSetUp','showPersonIndex','showSetUpNotice'])
+    ...mapMutations(['showSetUp','showPersonIndex','showSetUpNotice','showSltShield']),
+    showToasts(){
+        this.$store.commit('showToasts',{toast:true,msg:"功能尚未完善"})
+    },
+    getSltShield(){
+        this.showSltShield()
+        this.$store.dispatch('getShield',this)
+    }
 }
 }
 </script>

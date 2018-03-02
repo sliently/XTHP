@@ -22,9 +22,8 @@
                     <span>更新链接</span>
                 </div>
                  <mu-divider/>
-                <div v-clipboard:copy="`${invite}${group.invite}`"
-                    v-clipboard:success="onCopy"
-                    v-clipboard:error="onError" 
+                <div :data-clipboard-text="`${invite}${group.invite}`"
+                    id="btn"
                     class="profile-button">
                     <mu-icon value="content_copy" :size="35" />
                     <span>复制链接</span>
@@ -39,6 +38,7 @@
     </div>
 </template>
 <script>
+import Clipboard from 'clipboard'
 import {mapState,mapMutations,mapGetters} from 'vuex'
 export default {
   name:'inviteMsg',
@@ -53,6 +53,9 @@ export default {
           return this.invite + this.group.invite
       }
   },
+  created(){
+      this.onCopy()
+  },
   methods:{
       ...mapMutations(['closeRightIndex','showToasts']),
       updadeLink(){
@@ -63,13 +66,17 @@ export default {
           let hint = "非管理员不能更新"
           this.showToasts({toast:true,msg:hint})
       },
-      onCopy(e){
-          let hint = "复制成功"
-          this.$store.commit('showToasts',{toast:true,msg:hint})
-      },
-      onError(e){
-          let hint = "复制失败"
-          this.$store.commit('showToasts',{toast:true,msg:hint})
+      onCopy(){
+          var clipboard = new Clipboard('#btn');
+        clipboard.on('success', (e)=> {
+            let hint = "复制成功"
+            this.$store.commit('showToasts',{toast:true,msg:hint})
+            e.clearSelection();
+        });
+        clipboard.on('error', (e)=> {
+            let hint = "复制失败"
+            this.$store.commit('showToasts',{toast:true,msg:hint})
+        });
       },
       updateGG(obj){
           return `http://123.207.239.16/invite/${obj}`

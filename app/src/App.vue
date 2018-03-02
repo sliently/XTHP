@@ -22,16 +22,17 @@ export default {
   margin: 0;
   padding: 0;
 }
-@font-face {
-  font-family: '简蝶语';
-  src: url('http://lhp313-1253555032.coscd.myqcloud.com/font/简蝶语.ttf');
-}
 #app {
-  font-family: 简蝶语;
+  font-family: 'Roboto Mono', monospace;
+  font-family: 'Dosis', sans-serif;
+  font-family: 'Kavivanar', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   width: 100%;
   height: 100vh;
+}
+a{
+  color: #1ea6e8;
 }
 </style>

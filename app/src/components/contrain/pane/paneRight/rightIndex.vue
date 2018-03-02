@@ -1,6 +1,6 @@
 <template>
     <div class="manager">
-        <mu-appbar title="群组信息">
+        <mu-appbar title="信息">
             <mu-icon-button @click="closeRightIndex" icon="close" slot="left"/>
         </mu-appbar>
         <div class="Profile-body">

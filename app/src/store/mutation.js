@@ -27,16 +27,6 @@ const mutations = {
     setGroupAjax: (state, info) => {
         state.isMsgPerson = info
     },
-    // 显示和消失无更多消息弹出框
-    showToast: (state) => {
-        state.toast = true
-        if (state.toastTimer) clearTimeout(state.toastTimer)
-        state.toastTimer = setTimeout(() => { state.toast = false }, 2000)
-    },
-    hideToast: (state) => {
-        state.toast = false
-        if (state.toastTimer) clearTimeout(state.toastTimer)
-    },
     setUserInfo: (state, info) => {
         state.self.User_id = info.User_id
         state.self.UserAvatar = info.UserAvatar
@@ -187,6 +177,11 @@ const mutations = {
         state.setUp = false
         state.setUpNotice = !state.setUpNotice
     },
+    // 显示屏蔽页面
+    showSltShield: (state) => {
+        state.setUp = false
+        state.sltShield = !state.sltShield
+    },
     // 展示群组信息或者群组信息页
     showRightIndex: (state) => {
         state.rightInvite = false
@@ -229,11 +224,27 @@ const mutations = {
             state.group.GroupTime = info.lastLogin
             state.group.GroupAdmin = undefined
             state.group.GroupNotice = info.UserSlogan
+            state.group.sltShield = info.sltShield
         }
+    },
+    // 设置屏蔽
+    setSltShield: (state, info) => {
+        state.group.sltShield = info
     },
     // 设置对话在线
     setOnLine: (state, info) => {
         state.onLine = info
+    },
+    setUser_Shield: (state, info) => {
+        state.user_Shield = info
+    },
+    // 取消屏蔽
+    deleteShield: (state, info) => {
+        state.user_Shield.forEach((item, index, arr) => {
+            if (item.User_id === info) {
+                arr.splice(index, 1)
+            }
+        })
     }
 }
 export default mutations

@@ -22,7 +22,7 @@ export default {
 <style lang="less" scoped>
 .emoil{
     position: absolute;
-    bottom: 60px;
+    bottom: 48px;
     width: 100%;
     height: auto;
     background-color: #eee;

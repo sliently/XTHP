@@ -21,6 +21,10 @@
         <div v-if="setUpNotice" class="manager">
             <my-set-up-notice></my-set-up-notice>
         </div>
+        <!-- 屏蔽对象 -->
+        <div v-if="sltShield" class="manager">
+            <my-slt-shield></my-slt-shield>
+        </div>
       </transition>
   </div>
 </template>
@@ -31,6 +35,7 @@ import MyPanePerson from './panePerson/panePerson'
 import MyNewGroup from './newGroup/newGroup'
 import MySetUp from './setUp/setup'
 import MySetUpNotice from './setUp/notive'
+import MySltShield from './sltShield/sltShield'
 export default {
   name:"paneLeft",
   components:{
@@ -38,10 +43,11 @@ export default {
       MyPanePerson,
       MyNewGroup,
       MySetUp,
-      MySetUpNotice
+      MySetUpNotice,
+      MySltShield
   },
   computed:{
-      ...mapState(['personIndex',"panePerson","newGroup",'setUp','setUpNotice'])
+      ...mapState(['personIndex',"panePerson","newGroup",'setUp','setUpNotice','sltShield'])
   },
   methods:{
       ...mapMutations(['showPersonIndex','showPanePerson'])

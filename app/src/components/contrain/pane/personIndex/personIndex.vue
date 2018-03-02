@@ -61,11 +61,6 @@ export default {
   computed:{
       ...mapState(['ifAjax','self','personIndex'])
   },
-  watch:{
-      self(curVal,oldVal){
-          console.log(curVal,oldVal);
-      }
-  },
   methods:{
       ...mapMutations(['showPersonIndex','showToasts']),
       changeAvatar(){

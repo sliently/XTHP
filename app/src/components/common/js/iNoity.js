@@ -1,3 +1,10 @@
+const defaultNotification = {
+    title: '消息提醒！',
+    body: '您有一条新消息！',
+    openurl: '',
+    iconUrl: ''
+}
+
 export default class iNoity {
     constructor(config) {
         if (config) {
@@ -8,9 +15,14 @@ export default class iNoity {
         if (!config) {
             config = {};
         }
-        this.audio = config.audio || '';
-        // this.notification = config.notification || defaultNotification;
-        //初始化生成声音文件节点
+        // 判断是否含有通知和允许通知
+        if (window.Notification && window.Notification.permission != 'granted') {
+            window.Notification.requestPermission()
+        }
+        this.audio = config.audio || ''
+        this.notification = config.notification || defaultNotification
+            // this.notification = config.notification || defaultNotification;
+            //初始化生成声音文件节点
         if (this.audio) {
             this.setURL(this.audio)
         }
@@ -50,8 +62,37 @@ export default class iNoity {
         this.audioElm.play();
         return this;
     }
-    notify() {
-
+    notify(json) {
+        let nt = this.notification
+        let onclick = json.onclick ? json.onclick : this.onclick
+        if (window.Notification) {
+            let option = {}
+            option.icon = json.icon ? json.icon : nt.iconUrl
+            option.body = json.body ? json.body : nt.body
+            let title = json.title ? json.title : nt.title
+                // 文字显示方向默认为auto
+            if (json.dir) option.dir = json.dir
+            let n = new Notification(title, option)
+            n.onclick = () => {
+                if (onclick && typeof onclick === 'function') {
+                    onclick(n)
+                }
+            }
+            n.onclose = function() {
+                if (json.onclose && typeof json.onclose === 'function') {
+                    json.onclose(n)
+                }
+            }
+            n.onerror = function() {
+                if (json.onerror && typeof json.onerror === 'function') {
+                    json.onerror(n)
+                }
+            }
+            return this
+        }
+    }
+    isPermission() {
+        return window.Notification && Notification.permission === "granted" ? true : false
     }
 }
 //获取文件后缀

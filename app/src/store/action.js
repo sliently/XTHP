@@ -59,7 +59,7 @@ const actions = {
             commit('setAjax', false)
             commit('setNewMsg', false)
             if (info.num == 0) {
-                commit('showToast')
+                commit('showToasts', { toast: true, msg: "无更多消息" })
                 if (state.messageList.length !== 0) {
                     commit('setHistory', [])
                 }
@@ -133,6 +133,10 @@ const actions = {
                 console.log(info.errMsg)
                 return
             }
+            if (info.isShield) {
+                commit("showToasts", { toast: true, msg: "对方屏蔽你" })
+                return
+            }
             commit('updateTemporary', { info, is: false, to: true })
             commit('addHistory', { info: info.msg, ZeroHour })
             return
@@ -162,7 +166,7 @@ const actions = {
                 console.log(info.errMsg)
                 return
             }
-            commit("setGroup", info.group[0])
+            commit("setGroup", info.group)
             commit('setGroupAjax', false)
             return
         })
@@ -186,28 +190,67 @@ const actions = {
     },
     // 退出聊天
     deleteMsg: ({ state, commit }, that) => {
-            let data = {
-                token: state.user_token,
-                msg_id: state.msgPerson
-            }
-            that.$socket.emit('deleteMsg', data, (info) => {
-                if (info.isError) {
-                    console.log(info.errMsg)
-                    return
-                }
-                commit('deleteMsgPerson')
-                commit('setTemporary', info.Temporary)
-                return
-            })
+        let data = {
+            token: state.user_token,
+            msg_id: state.msgPerson
         }
-        // socket_newMessage: ({ commit }, info) => {
-        //     if (info.isError) {
-        //         console.log(info.errMsg)
-        //         return
-        //     }
-        //     commit('addHistory', info.msg)
-        //         // commit('setTemporary', info.Temporary)
-
-    // }
+        that.$socket.emit('deleteMsg', data, (info) => {
+            if (info.isError) {
+                console.log(info.errMsg)
+                return
+            }
+            commit('deleteMsgPerson')
+            commit('setTemporary', info.Temporary)
+            return
+        })
+    },
+    // 屏蔽用户
+    Shield_user: ({ state, commit }, that) => {
+        let data = {
+            token: state.user_token,
+            friend_id: state.msgPerson.msg_id
+        }
+        that.$socket.emit('Shield_user', data, (info) => {
+            if (info.isError) {
+                console.log(info.errMsg)
+                return
+            }
+            if (info.isShield) {
+                commit('setSltShield', true)
+                commit("showToasts", { toast: true, msg: "屏蔽成功" })
+            } else {
+                commit('setSltShield', false)
+                commit("showToasts", { toast: true, msg: "解除屏蔽" })
+            }
+            return
+        })
+    },
+    // 获取屏蔽列表
+    getShield: ({ state, commit }, that) => {
+        that.$socket.emit('getShield', state.user_token, (info) => {
+            if (info.isError) {
+                console.log(info.errMsg)
+                return
+            }
+            commit('setUser_Shield', info.Shield)
+            return
+        })
+    },
+    dltShield: ({ state, commit }, { data, that }) => {
+        that.$socket.emit('Shield_user', data, (info) => {
+            if (info.isError) {
+                console.log(info.errMsg)
+                return
+            }
+            if (info.isShield) {
+                return
+            } else {
+                commit('setSltShield', false)
+                commit('deleteShield', data.friend_id)
+                commit("showToasts", { toast: true, msg: "解除屏蔽" })
+            }
+            return
+        })
+    }
 }
 export default actions

@@ -10,10 +10,10 @@
                <mu-checkbox v-model="voice" @change="setVoice" label="声音" /> 
             </div>
             <div class="check-content">
-               <mu-checkbox label="桌面弹窗" /> 
+               <mu-checkbox  v-model="noticy" @change="setNoity" label="桌面弹窗" /> 
             </div>
             <div class="check-content">
-               <mu-checkbox label="显示消息预览" /> 
+               <mu-checkbox v-model="preview" @change="setPreview" label="显示消息预览" /> 
             </div>
         </div>
   </div>
@@ -24,8 +24,9 @@ export default {
   name:'setUpNotice',
   data(){
       return {
-          isVoice:this.$cookies.get('isVoice') || 'true'
-        //   Notification:this.$cookies.get('isVoice') || false
+          isVoice:this.$cookies.get('isVoice') || 'true',
+          isNoity:this.$cookies.get('isNoity') || 'true',
+          isPreview:this.$cookies.get('isPreview') || 'true'
       }
   },
   computed:{
@@ -40,12 +41,42 @@ export default {
         set(val){
             this.isVoice = val
         }
+      },
+      noticy:{
+        get(){
+            if(this.isNoity && this.isNoity ==='true'){
+                return true
+            }else{
+                return false
+            }
+        },
+        set(val){
+            this.isNoity = val
+        }  
+      },
+      preview:{
+          get(){
+            if(this.isPreview && this.isPreview ==='true'){
+                return true
+            }else{
+                return false
+            }
+        },
+        set(val){
+            this.isPreview = val
+        }  
       }
   },
   methods:{
       ...mapMutations(['showSetUpNotice']),
       setVoice(val){
           this.$cookies.set('isVoice',val)
+      },
+      setNoity(val){
+          this.$cookies.set('isNoity',val)
+      },
+      setPreview(val){
+          this.$cookies.set('isPreview',val)
       }
   }
 }

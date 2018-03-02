@@ -1,7 +1,6 @@
 <template>
 <div class="message-list" ref="dd">
-     <mu-refresh-control :refreshing="isNewMsg || isAjax" :trigger="trigger" @refresh="getMany"/>    
-    <mu-toast v-show="toast" message="无更多消息" @close="$store.commit('hideToast')"/>
+     <mu-refresh-control :refreshing="isNewMsg || isAjax" :trigger="trigger" @refresh="getMany"/> 
     <div v-show="!isAjax" class="message-item" ref="scroll">
         <div style="width:100%;height:40px;padding:10px 0;">
             <div v-show="!isNewMsg" class="getMany" @click="getMany">更多消息</div>
@@ -15,6 +14,7 @@
 <script>
 import {mapGetters, mapState} from 'vuex'
 import MyMsgMenu from './message-menu'
+import {backBottom} from '../../../common/js/assist'
 export default {
   name:'dialogOne',
   components:{
@@ -22,7 +22,7 @@ export default {
   },
   computed:{
       ...mapGetters(['handleMessage']),
-      ...mapState(['isAjax','isNewMsg','toast']),
+      ...mapState(['isAjax','isNewMsg']),
   },
   mounted(){
     this.trigger = this.$el
@@ -38,7 +38,8 @@ export default {
   methods:{
       scrollTo(){
         if(this.current == null){
-            this.$refs.dd.scrollTop = this.$refs.scroll.scrollHeight
+            backBottom(200,this.$refs.dd,this.$refs.scroll.scrollHeight)
+            // this.$refs.dd.scrollTop = this.$refs.dd.scrollHeight
             return
         }
         this.$refs.dd.scrollTop = this.$refs.scroll.scrollHeight-this.current
@@ -56,7 +57,7 @@ export default {
       handleMessage(val,oldVal){
         setTimeout(() => {
            this.scrollTo()
-        }, 20)
+        }, 300)
       }
   }
 }

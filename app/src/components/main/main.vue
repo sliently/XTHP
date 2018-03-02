@@ -29,6 +29,10 @@ export default {
   },
   created(){
       let isVoice = this.$cookies.get('isVoice')
+      let isNoity = this.$cookies.get('isNoity')
+      if(isNoity==null){
+        this.$cookies.set('isNoity','true')
+      }
       if(!isVoice){
         this.voice = true
       }
@@ -42,9 +46,24 @@ export default {
     this.initRoom(this)
     favico.resetWhenDocVisibility()
     this.iNoity = new iNoity({audio:'/static/music/iNoity.wav'})
+    this.$socket.on('connect',()=>{
+      this.con_socket()
+    })
+    this.$socket.on('newMessage',(info)=>{
+      this.newMessage_socket(info)
+    })
+    this.$socket.on('withdraw',(info)=>{
+      this.withdraw_socket(info)
+    })
   },
-  sockets:{
-    connect(){
+  methods:{
+    ...mapMutations(['setUserToken']),
+    ...mapActions(['getUserInfo','getTemporary','initRoom']),
+    changeVoice(val){
+      this.voice = false
+      this.$cookies.set('isVoice',val)
+    },
+    con_socket(){
       let token = this.$cookies.get('user')
       this.setUserToken(token)
       this.getUserInfo(this)
@@ -52,12 +71,31 @@ export default {
       // // 初始化房间列表
       this.initRoom(this)
     },
-    newMessage(info){
+    newMessage_socket(info){
       // 是否有声音
       let isVoice = this.$cookies.get('isVoice')
       if(isVoice && isVoice==='true'){
         this.iNoity.player()
+        setTimeout(()=>{
+          this.iNoity.stopPlay()
+        },1000)
       }
+      // 是否有桌面提示
+      let isNoity = this.$cookies.get('isNoity')
+      if(isNoity && isNoity==='true'){
+        // 是否显示消息
+        let isPreview = this.$cookies.get('isPreview')
+        let message = (isPreview && isPreview ==='true')?info.msg.message:'您收到一条新消息'
+        this.iNoity.notify({
+          icon:info.msg.fromUser.UserAvatar,
+          body:message,
+          title:info.msg.fromUser.UserName,
+          onclick:function(e){
+            window.open('123.207.239.16')
+          }
+        })
+      }
+     
         if (document.hidden) {
             favico.addBage();
         }
@@ -71,13 +109,13 @@ export default {
           this.$store.commit('setTemporary', info.Temporary)
         }
         if(this.msgPerson.room_id==null && this.msgPerson.msg_id==info.msg.fromUser.User_id){
-          this.$store.commit('addHistory', info.msg)
+          this.$store.commit('addHistory', {info:info.msg})
         }
         if(this.msgPerson.msg_id==null && this.msgPerson.room_id==info.msg.toUser.Group_id){
-          this.$store.commit('addHistory', info.msg)
+          this.$store.commit('addHistory', {info:info.msg})
         }
     },
-    withdraw(info){
+    withdraw_socket(info){
       if (this.msgPerson.msg_id==null) {
         this.$store.commit('deleteDialogue', info)
           if (info.room_id && info.room_id ==this.msgPerson.room_id) {
@@ -93,14 +131,6 @@ export default {
           }
       }
   },
-  },
-  methods:{
-    ...mapMutations(['setUserToken']),
-    ...mapActions(['getUserInfo','getTemporary','initRoom']),
-    changeVoice(val){
-      this.voice = false
-      this.$cookies.set('isVoice',val)
-    }
   }
 }
 </script>

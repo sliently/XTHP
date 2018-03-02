@@ -17,9 +17,10 @@ let state = {
     isAjax: false,
     isNewMsg: false,
     isMsgPerson: false,
+    // 屏蔽对象页
+    sltShield: false,
     // 无更多消息弹出框
     toast: false,
-    toastTimer: null,
     // 信息页是否显示
     personIndex: false,
     // 显示用户好友
@@ -66,11 +67,15 @@ let state = {
     messageList: [],
     // 用户群组
     group: {
-        // GroupAvatar: "/static/image/12.jpg",
-        // GroupName: "THPX",
-        // GroupTime: "创建于12/12/2017",
-        // GroupNotice: "公告是。。。。",
-        // GroupAdmin: ""
+        Group_id: null,
+        GroupAvatar: null,
+        GroupName: null,
+        GroupTime: null,
+        GroupNotice: null,
+        GroupAdmin: null,
+        GroupNotice: null,
+        invite: null,
+        sltShield: null
     },
     // 当前聊天信息
     msgPerson: {
@@ -80,7 +85,9 @@ let state = {
         msg_id: null,
         num: 0
     },
-    onLine: []
+    onLine: [],
+    // 储存被屏蔽的用户
+    user_Shield: []
 }
 export default new Vuex.Store({
     state,

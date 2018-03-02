@@ -96,6 +96,7 @@ export default {
           let Rex = /(#)\{[\u4e00-\u9fa5]{1,}\}/g
           let msg = item.message
           let arr = item.message.match(Rex)
+          msg = IsURL(msg)
           if(Rex.test(item.message)){
               let chinese = /[\u4e00-\u9fa5]{1,}/g
               for(let i=0;i<arr.length;i++){
@@ -105,7 +106,7 @@ export default {
                 msg = msg.replace(arr[i],ele)
               }
           }
-            return msg
+          return msg
       },
       handleClose(e){
           this.open = false
@@ -141,6 +142,7 @@ export default {
           })
       },
       sendMsg(item){
+          this.handleClose()
         this.closeRightIndex()
         this.setAjax(true)
         this.addTemporary({user_id:item.User_id,that:this})
@@ -181,7 +183,7 @@ export default {
             font-size: 14px;
             color: #5f6265;
             .time{
-                font-size: 7px;
+                font-size: 10px;
                 display: none;
             }
         }
@@ -241,7 +243,7 @@ export default {
                 border-radius: 8px;
                 .img{
                     width: 100%;
-                    max-width: 300px;
+                    max-width: 230px;
                 }
                 .file{
                     padding: 5px;
@@ -264,6 +266,7 @@ export default {
             .more-left{
                 position: absolute;
                 right: -25px;
+                bottom:0;
                 display: none;
                 cursor: pointer;
                 width: 20px;
@@ -278,6 +281,7 @@ export default {
                 width: 20px;
                 height: 20px;
                 left: -25px;
+                bottom: 0;
                 border-radius: 3px;
                 background: #b1a9a9;
             }

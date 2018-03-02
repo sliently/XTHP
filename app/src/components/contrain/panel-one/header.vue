@@ -2,7 +2,7 @@
   <div class="Header">
     <mu-appbar :zDepth="0">
         <mu-avatar @click.native="showPersonIndex" style="margin-left:10px;cursor: pointer;" slot="left" :src="self.UserAvatar"/>
-        <mu-icon-button icon="message" iconClass="Header-colors" slot="right"/>
+        <!-- <mu-icon-button icon="message" iconClass="Header-colors" slot="right"/> -->
         <mu-icon-button @click.native="getOnLine" icon="people" iconClass="Header-colors" slot="right"></mu-icon-button>
         <mu-icon-menu icon="more_vert" 
                     iconClass="Header-colors"
