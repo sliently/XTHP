@@ -20,7 +20,7 @@ module.exports = {
             // 加密密码
         password = crypto.encryption(password)
             // 已经有该邮箱或者用户名
-        if (user && userN) {
+        if (user || userN) {
             return cb({ isError: true, errMsg: 'ERROR1002' })
         }
         let resault = await user_mysql.create({ password, email, nickname }).catch((err) => {
@@ -159,12 +159,15 @@ module.exports = {
             resault = await user_mysql.msgFriend(msg_id).catch((err) => {
                 return cb({ isError: true, errMsg: 'ERROR1005' })
             })
-            return cb({ group: resault })
+            let sltShield = await private.sltShield({ user_id: data.user, friend_id: msg_id }).catch((err) => {
+                return cb({ isError: true, errMsg: 'ERROR1005' })
+            })
+            return cb({ group: {...resault[0], sltShield } })
         } else {
             resault = await user_mysql.msgRoom(group_id).catch((err) => {
                 return cb({ isError: true, errMsg: 'ERROR1005' })
             })
-            return cb({ group: resault })
+            return cb({ group: resault[0] })
         }
         return cb({ isError: true, errMsg: 'ERROR1007' })
     },
@@ -181,6 +184,35 @@ module.exports = {
             })
         }
         return cb({ onLine: arr })
+    },
+    // 得到被屏蔽人的信息
+    getShield: async function(info, cb) {
+        let sql = `select friend_id from user_Shield where user_id = ${info.user}`
+        let result = await con.query(sql).catch((err) => {
+            return cb({ isError: true, errMsg: 'ERROR1005' })
+        })
+        let arr = []
+        for (item of result) {
+            let sql1 = `select User_id,UserName,UserAvatar,UserSlogan from user where User_id = ${item.friend_id}`
+            let result1 = await con.query(sql1).catch((err) => {
+                return cb({ isError: true, errMsg: 'ERROR1005' })
+            })
+            let qq = onLine.filter((x) => {
+                return x.info.user == result1[0].User_id
+            })
+            if (qq.length != 0) {
+                arr.push({
+                    ...result1[0],
+                    userAgent: qq[0].Agent
+                })
+            } else {
+                arr.push({
+                    ...result1[0],
+                    userAgent: '[ offLine ]'
+                })
+            }
+        }
+        return cb({ Shield: arr })
     },
     queryPer: async function(obj, cb) {
         let sql = `select User_id,UserName,UserAvatar,UserSlogan from user where UserName like '%${obj}%'`

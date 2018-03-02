@@ -43,5 +43,38 @@ module.exports = {
             return false
         }
         return true
+    },
+    // 屏蔽用户
+    Shield_user: async(obj, cb) => {
+        let { user_id, friend_id } = obj
+        let sql1 = `select * from user_Shield where user_id=${user_id} and friend_id=${friend_id}`
+        let result1 = await con.query(sql1).catch((err) => {
+            return cb({ isError: true, errMsg: 'ERROR1005' })
+        })
+        if (result1.length != 0) {
+            let sql2 = `delete from user_Shield where user_id=${user_id} and friend_id=${friend_id}`
+            let reqult2 = await con.query(sql2).catch((err) => {
+                return cb({ isError: true, errMsg: 'ERROR1005' })
+            })
+            return cb({ isShield: false })
+        }
+        let sql = `insert into user_Shield (user_id,friend_id) values (${user_id},${friend_id})`
+        let result = await con.query(sql).catch((err) => {
+            return cb({ isError: true, errMsg: 'ERROR1005' })
+        })
+        return cb({ isShield: true })
+    },
+    // 查询是否被屏蔽
+    sltShield: async(obj, cb) => {
+        let { user_id, friend_id } = obj
+        let sql = `select * from user_Shield where user_id = ${user_id} and friend_id = ${friend_id}`
+        let result = await con.query(sql).catch((err) => {
+            throw (err)
+        })
+        if (result.length == 0) {
+            return false
+        } else {
+            return true
+        }
     }
 }

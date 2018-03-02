@@ -107,11 +107,18 @@ module.exports = {
         }
         if (room_id == null) {
             let obj = {
-                from_id: user,
-                to_id: msg_id,
-                message: message,
-                time: time,
-                type: type
+                    from_id: user,
+                    to_id: msg_id,
+                    message: message,
+                    time: time,
+                    type: type
+                }
+                // 查看对方是否屏蔽自己
+            let isShield = await private.sltShield({ user_id: msg_id, friend_id: user }).catch((err) => {
+                return cb({ isError: true, errMsg: 'ERROR1005' })
+            })
+            if (isShield) {
+                return cb({ isShield: true })
             }
             isTrue = await private.savePrivateMessage(obj).catch(() => {
                 return cb({ isError: true, errMsg: 'ERROR1005' })

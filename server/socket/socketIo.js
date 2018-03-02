@@ -181,7 +181,23 @@ socketio.getSocketio = async function(server) {
             })
             // 搜索列表
         socket.on('queryPer', (obj, cb) => {
-            user.queryPer(obj, cb)
+                user.queryPer(obj, cb)
+            })
+            // 屏蔽用户
+        socket.on('Shield_user', (obj, cb) => {
+            let { friend_id, token } = obj
+            parseToken(token).then((data) => {
+                private.Shield_user({ friend_id, user_id: data.user }, cb)
+            }).catch((err) => {
+                return cb({ isError: true, errMsg: 'ERROR1007' })
+            })
+        })
+        socket.on('getShield', (obj, cb) => {
+            parseToken(obj).then((data) => {
+                user.getShield(data, cb)
+            }).catch((err) => {
+                return cb({ isError: true, errMsg: 'ERROR1007' })
+            })
         })
     })
 }
