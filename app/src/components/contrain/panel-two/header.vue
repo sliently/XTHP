@@ -45,9 +45,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .HeaderTwo{
-    position: relative;
     width: 100%;
-    top: 0;
     border-left:1px solid rgba(0,0,0,.2);
 }
 .mu-appbar{

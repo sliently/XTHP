@@ -11,10 +11,10 @@ import axios from 'axios'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 Vue.use(MuseUI)
-Vue.config.productionTip = true
+Vue.config.productionTip = false
     // socket插件引入
 import VueSocketio from 'vue-socket.io';
-Vue.use(VueSocketio, 'http://123.207.239.16', store);
+Vue.use(VueSocketio, '/', store);
 // cookie插件引入
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)

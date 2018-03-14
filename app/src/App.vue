@@ -22,6 +22,10 @@ export default {
   margin: 0;
   padding: 0;
 }
+html,body{
+  width: 100%;
+  height: 100%;
+}
 #app {
   font-family: 'Roboto Mono', monospace;
   font-family: 'Dosis', sans-serif;
@@ -30,7 +34,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 a{
   color: #1ea6e8;

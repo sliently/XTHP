@@ -41,6 +41,15 @@ const mutations = {
             state.dialogue.push(item)
         })
     },
+    // 关闭图片
+    closeImgBig: (state, info) => {
+        state.isImgBig = false
+    },
+    showImgBig: (state, info) => {
+        state.ImgBig.src = info.src
+        state.ImgBig.avatar = info.avatar
+        state.isImgBig = true
+    },
     // 把未读消息设置为0
     unread: (state, info) => {
         state.dialogue.forEach((item, index) => {

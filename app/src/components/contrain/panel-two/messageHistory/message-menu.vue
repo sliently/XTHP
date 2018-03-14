@@ -17,7 +17,6 @@
                 <span v-if="item.type==0" v-html="handleMsg(item)"></span>
                 <span v-if="item.type==1">
                     <img class="img" @click="showBig" :src="item.message" alt="无法显示">
-                    <my-picture v-if="Big" :src="item.message" @close="hideBig"></my-picture>
                 </span>
                 <div v-if="item.type==2" class="file">
                     <mu-icon value="insert_drive_file" color="blue" :size="40"/>
@@ -49,12 +48,8 @@
 <script>
 import {mapState,mapMutations,mapActions} from 'vuex'
 import {IsURL} from '@/common/js/help'
-import MyPicture from '@/components/common/Picture'
 export default {
   name:'msgMenu',
-  components:{
-      MyPicture
-  },
   props:{
       item:{
           type:Object,
@@ -69,25 +64,21 @@ export default {
       return{
           open:false,
           trigger:null,
-          msg:null,
-          Big:false
+          msg:null
       }
   },
   mounted(){
       this.trigger = this.$refs.bottom
   },
   methods:{
-      ...mapMutations(['setAjax','setMsgPerson','closeRightIndex']),
+      ...mapMutations(['setAjax','setMsgPerson','closeRightIndex','showImgBig']),
       ...mapActions(['getHistory','addTemporary']),
-      showBig(){
-          this.Big = true
-      },
-      hideBig(){
-            this.Big = false
-      },
       updateMsg(obj){
-            ;let file =JSON.parse(obj)
+            let file =JSON.parse(obj)
             return file
+      },
+      showBig(){
+          this.showImgBig({avatar:this.item.UserAvatar,src:this.item.message})
       },
       toggle(){
           this.open = !this.open
@@ -102,7 +93,7 @@ export default {
               for(let i=0;i<arr.length;i++){
                 //   匹配里面的中文
                 let now = arr[i].match(chinese)
-                let ele = `<img src='http://lhp313-1253555032.coscd.myqcloud.com/static/emoil/${now}.gif' alt = ${now}/>`
+                let ele = `<img src='https://lhp313-1253555032.coscd.myqcloud.com/static/emoil/${now}.gif' alt = ${now}/>`
                 msg = msg.replace(arr[i],ele)
               }
           }

@@ -3,7 +3,7 @@
       <div class="paneImgTitle">
                 <!-- 头部 -->
         <mu-appbar title="图片">
-            <mu-avatar slot="left" src="/static/image/11.jpg"/>
+            <mu-avatar slot="left" :src="avatar"/>
             <mu-icon-button icon="zoom_in" @click.native="zoomIn" slot="right"></mu-icon-button>
             <mu-icon-button icon="zoom_out" @click.native="zoomOut" slot="right"></mu-icon-button>
             <mu-icon-button icon="close" @click="close" slot="right"></mu-icon-button>
@@ -26,6 +26,10 @@ export default {
   },
   props:{
       src:{
+          type:String,
+          default:null
+      },
+      avatar:{
           type:String,
           default:null
       }

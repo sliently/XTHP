@@ -33,6 +33,7 @@ export default {
     height: 240px;
     padding: 14px 0 10px 0;
     .mu-avatar{
+        position: relative;
         font-size: 10px;
         &:hover .show{
             display: block;
@@ -46,7 +47,8 @@ export default {
             width:200px;
             height:200px;
             position:absolute;
-            top:14px;
+            top:0;
+            left: 0;
             background:rgba(0,0,0,.31);
         }
     }

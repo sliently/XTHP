@@ -130,8 +130,7 @@ export default {
   }
 }
 .sendMessage{
-    position: absolute;
-    bottom: 0;
+    position: relative;
     height: 48px;
     width: 100%;
     line-height: 48px;

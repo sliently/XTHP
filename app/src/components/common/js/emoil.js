@@ -1,7 +1,7 @@
 export function RexEmoil(msg) {
 
 }
-const url = 'http://lhp313-1253555032.coscd.myqcloud.com/static/emoil/'
+const url = 'https://lhp313-1253555032.coscd.myqcloud.com/static/emoil/'
 const emoil = [{
     src: url + "微笑.gif",
     value: "#{微笑}"

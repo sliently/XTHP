@@ -44,7 +44,7 @@ export default {
   name:'inviteMsg',
   data(){
       return {
-          invite:"http://123.207.239.16/invite/"
+          invite:"https://haiping313.cn/invite/"
       }
   },
   computed:{

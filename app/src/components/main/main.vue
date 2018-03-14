@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+      <my-picture v-if="isImgBig" :src="ImgBig.src" :avatar="ImgBig.avatar" @close="closeImgBig"></my-picture>
       <my-contrain></my-contrain>
         <mu-dialog :open="voice" title="提示音" @close="changeVoice('false')">
           打开提示音，再次更改到设置下
@@ -13,10 +14,11 @@ import MyContrain from '@/components/contrain/contrain'
 import {mapMutations,mapActions,mapState} from 'vuex'
 import favico from './favico'
 import iNoity from '../common/js/iNoity'
+import MyPicture from '@/components/common/Picture'
 export default {
   name:'Mains',
   components:{
-      MyContrain
+      MyContrain,MyPicture
   },
   data(){
     return{
@@ -25,7 +27,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['msgPerson','Toast'])
+    ...mapState(['msgPerson','Toast','isImgBig','ImgBig'])
   },
   created(){
       let isVoice = this.$cookies.get('isVoice')
@@ -57,7 +59,7 @@ export default {
     })
   },
   methods:{
-    ...mapMutations(['setUserToken']),
+    ...mapMutations(['setUserToken','closeImgBig']),
     ...mapActions(['getUserInfo','getTemporary','initRoom']),
     changeVoice(val){
       this.voice = false
@@ -91,7 +93,7 @@ export default {
           body:message,
           title:info.msg.fromUser.UserName,
           onclick:function(e){
-            window.open('123.207.239.16')
+            window.open('http://haiping313.cn')
           }
         })
       }
@@ -138,7 +140,7 @@ export default {
 .main{
   width: 100%;
   height: 100%;
-  background-image: url('http://lhp313-1253555032.coscd.myqcloud.com/static/mainBc.jpg');
+  background-image: url('https://lhp313-1253555032.coscd.myqcloud.com/static/mainBc.jpg');
   background-size: cover;
 }
 </style>

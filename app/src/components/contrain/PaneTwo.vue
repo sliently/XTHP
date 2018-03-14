@@ -7,7 +7,7 @@
       </div>
       <div class="one" @click="showHistoryMessage" v-show="!this.$store.state.msgPerson.msgName">
         <div class="one-img" >
-          <img src="http://lhp313-1253555032.coscd.myqcloud.com/static/11111.jpg">
+          <img src="https://lhp313-1253555032.coscd.myqcloud.com/static/11111.jpg">
           <p>赶紧选择群聊</p>
         </div>
       </div>

@@ -33,6 +33,10 @@ export default {
   methods:{
       ...mapMutations(['showNewGroup']),
       createGroup(){
+          if(this.groupName.length==0){
+              this.$store.commit("showToasts", { toast: true, msg: "群组名不能为空" })
+              return
+          }
           this.$store.dispatch('createGroup',{
                groupName:this.groupName, that:this 
           })

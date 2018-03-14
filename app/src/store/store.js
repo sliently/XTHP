@@ -41,6 +41,11 @@ let state = {
     rightInvite: false,
     // 移动端显示消息列表
     historyMessage: false,
+    isImgBig: false,
+    ImgBig: {
+        src: null,
+        avatar: null
+    },
     // 用户信息
     self: {
         User_id: null,

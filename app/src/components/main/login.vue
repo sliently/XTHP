@@ -2,7 +2,7 @@
   <div class="login">
       <div class="pane-login">
           <div class="pane-logo">
-              <img src="http://lhp313-1253555032.coscd.myqcloud.com/static/logo.png" alt="logo">
+              <img src="https://lhp313-1253555032.coscd.myqcloud.com/static/logo.png" alt="logo">
           </div>
           <transition name="login" mode="out-in">
             <div v-if="sign" key="login" class="signpad">

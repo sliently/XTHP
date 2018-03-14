@@ -20,6 +20,7 @@ export default {
 </script>
 <style lang="less">
 .Layout-container {
+    width: 100%;
     height: 100%;
     overflow: hidden;
     display: flex;
@@ -34,7 +35,7 @@ export default {
 @media screen and (min-width: 1200px){
    .Layout-container {
         width: 1118px;
-        height: -webkit-calc(~"100% - 38px");
+        height: calc(~"100% - 38px");
         margin: 0 auto;
         top: 19px;
         border-radius: 3px;
