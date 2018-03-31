@@ -144,7 +144,7 @@ module.exports = {
                 return cb({ isError: true, errMsg: 'ERROR1006' })
             })
             // console.log(data.data.Location)
-        let url = "http://" + data.data.Location
+        let url = "https://" + data.data.Location
         let sql = `update user set UserAvatar = '${url}' where User_id = '${user}' and UserEmail = '${User_email}'`
         let result = await con.query(sql).catch((err) => {
             // 查询失败

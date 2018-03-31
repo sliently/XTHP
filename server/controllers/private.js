@@ -4,7 +4,7 @@ module.exports = {
         let { from_id, to_id, message, time, type } = obj
         let sql = `insert into user_message (From_id,To_id,message,time,type) values (${from_id},${to_id},'${message}','${time}',${type})`
         let result = await con.query(sql).catch((err) => {
-            console.log(err)
+            console.log("失败")
         })
         if (result) {
             let _id = result.insertId

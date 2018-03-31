@@ -115,7 +115,7 @@ module.exports = {
                 return cb({ isError: true, errMsg: 'ERROR1006' })
             })
             // console.log(data.data.Location)
-        let url = "http://" + data.data.Location
+        let url = "https://" + data.data.Location
         let sql = `update groups set GroupAvatar = '${url}' where Group_id = '${group_id}'`
         let result = await con.query(sql).catch((err) => {
             // 查询失败

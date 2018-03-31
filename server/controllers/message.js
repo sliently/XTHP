@@ -92,19 +92,7 @@ module.exports = {
         let { room_id, msg_id } = UserObj
         let { user } = data
         let isTrue
-        let date = new Date()
-        let Hours = date.getHours(),
-            minutes = date.getMinutes(),
-            time
-        if (minutes < 10) {
-            minutes = "0" + minutes
-        }
-        if (Hours > 12) {
-            Hours = Hours - 12
-            time = `${Hours}:${minutes} 下午`
-        } else {
-            time = `${Hours}:${minutes} 上午`
-        }
+        let time = new Date()
         if (room_id == null) {
             let obj = {
                     from_id: user,
