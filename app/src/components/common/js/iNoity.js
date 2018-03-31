@@ -65,7 +65,7 @@ export default class iNoity {
     notify(json) {
         let nt = this.notification
         let onclick = json.onclick ? json.onclick : this.onclick
-        if (window.Notification) {
+        if ('Notification' in window) {
             let option = {}
             option.icon = json.icon ? json.icon : nt.iconUrl
             option.body = json.body ? json.body : nt.body
@@ -83,6 +83,9 @@ export default class iNoity {
                     json.onclose(n)
                 }
             }
+            setTimeout(() => {
+                n.close()
+            }, 3000)
             n.onerror = function() {
                 if (json.onerror && typeof json.onerror === 'function') {
                     json.onerror(n)

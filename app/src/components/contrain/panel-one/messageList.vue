@@ -11,7 +11,7 @@
                             <span class="con" style="color: rgba(0, 0, 0, .5)">{{item.message?item.message:"开始对话"}}</span>
                         </span>
                         <div slot="after">
-                            <span class="time">{{item.time?item.time:(new Date().getHours()+":" +new Date().getMinutes())}}</span>
+                            <span class="time">{{item.time?ConTime(item.time):(new Date().getHours()+":" +new Date().getMinutes())}}</span>
                             <mu-badge :content="`${item.unread==0?'':item.unread}`" secondary/>
                         </div>
                     </mu-list-item>
@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+import ConTime from '../../common/js/time'
 import {mapState,mapMutations,mapActions} from "vuex"
 import MySearch from "../../common/search"
 export default {
@@ -48,6 +49,9 @@ export default {
           this.setMsgPerson(item)
           this.$store.commit('unread',item)
           this.getHistory(this)
+      },
+      ConTime(obj){
+          return ConTime(obj)
       }
   }
 }

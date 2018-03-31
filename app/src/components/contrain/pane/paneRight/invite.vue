@@ -11,7 +11,7 @@
                         <span>{{group.GroupName}}</span>
                     </div>
                     <div class="invite-body">
-                        <span ref="links">{{updateGG(group.invite)}}</span>
+                        <span ref="links">{{msg}}</span>
                     </div>
                 </div>
             </mu-paper>
@@ -77,9 +77,6 @@ export default {
             let hint = "复制失败"
             this.$store.commit('showToasts',{toast:true,msg:hint})
         });
-      },
-      updateGG(obj){
-          return `http://123.207.239.16/invite/${obj}`
       }
   }
 }

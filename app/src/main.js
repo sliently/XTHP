@@ -13,9 +13,9 @@ import 'muse-ui/dist/muse-ui.css'
 Vue.use(MuseUI)
 Vue.config.productionTip = false
     // socket插件引入
-import VueSocketio from 'vue-socket.io';
-Vue.use(VueSocketio, '/', store);
-// cookie插件引入
+import VueSocketio from 'vue-socket.io'
+Vue.use(VueSocketio, 'localhost:3000', store)
+    // cookie插件引入
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 router.beforeEach((to, from, next) => {

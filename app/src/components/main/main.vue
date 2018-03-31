@@ -30,6 +30,7 @@ export default {
     ...mapState(['msgPerson','Toast','isImgBig','ImgBig'])
   },
   created(){
+    console.log(this.$options)
       let isVoice = this.$cookies.get('isVoice')
       let isNoity = this.$cookies.get('isNoity')
       if(isNoity==null){
@@ -78,9 +79,6 @@ export default {
       let isVoice = this.$cookies.get('isVoice')
       if(isVoice && isVoice==='true'){
         this.iNoity.player()
-        setTimeout(()=>{
-          this.iNoity.stopPlay()
-        },1000)
       }
       // 是否有桌面提示
       let isNoity = this.$cookies.get('isNoity')
@@ -88,16 +86,19 @@ export default {
         // 是否显示消息
         let isPreview = this.$cookies.get('isPreview')
         let message = (isPreview && isPreview ==='true')?info.msg.message:'您收到一条新消息'
-        this.iNoity.notify({
-          icon:info.msg.fromUser.UserAvatar,
-          body:message,
-          title:info.msg.fromUser.UserName,
-          onclick:function(e){
-            window.open('http://haiping313.cn')
-          }
-        })
+        try {
+          this.iNoity.notify({
+            icon:info.msg.fromUser.UserAvatar,
+            body:message,
+            title:info.msg.fromUser.UserName,
+            onclick:function(e){
+              window.open('https://haiping313.cn')
+            }
+          })
+        } catch (error) {
+          console.log("不支持")
+        }
       }
-     
         if (document.hidden) {
             favico.addBage();
         }
@@ -132,7 +133,7 @@ export default {
             this.$store.commit('showToasts', { toast: true, msg: "对方撤回一条消息" })
           }
       }
-  },
+  }
   }
 }
 </script>

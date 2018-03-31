@@ -5,17 +5,17 @@
     "author": "haiping",
     "private": true,
     "scripts": {
-        "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+        "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",
         "start": "npm run dev",
         "build": "node build/build.js"
     },
     "dependencies": {
         "axios": "^0.17.1",
         "babel-polyfill": "^6.26.0",
+        "clipboard": "^1.7.1",
         "favico.js": "^0.3.10",
         "muse-ui": "^2.1.0",
         "vue": "^2.5.2",
-        "vue-clipboard2": "^0.0.8",
         "vue-cookies": "^1.5.4",
         "vue-router": "^3.0.1",
         "vue-socket.io": "^2.1.1-b",

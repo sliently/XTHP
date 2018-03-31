@@ -6,7 +6,7 @@
     <div class="message-box" :style="item.UserNameSlot">
         <span class="userName">
             <span>{{item.UserName}}</span>
-            <span class="time">{{item.time}}</span>
+            <span class="time">{{ConTime(item.time)}}</span>
         </span>
         <div class="message-content">
             <span>
@@ -48,6 +48,7 @@
 <script>
 import {mapState,mapMutations,mapActions} from 'vuex'
 import {IsURL} from '@/common/js/help'
+import ConTime from '../../../common/js/time'
 export default {
   name:'msgMenu',
   props:{
@@ -73,6 +74,9 @@ export default {
   methods:{
       ...mapMutations(['setAjax','setMsgPerson','closeRightIndex','showImgBig']),
       ...mapActions(['getHistory','addTemporary']),
+      ConTime(obj){
+          return ConTime(obj)
+      },
       updateMsg(obj){
             let file =JSON.parse(obj)
             return file

@@ -67,7 +67,7 @@ const mutations = {
                 if (item.room_id && info.msg.toUser.Group_id == item.room_id) {
                     item.message = info.msg.message
                     item.time = info.msg.time
-                    if (is) {
+                    if (is && state.msgPerson.room_id !== info.msg.toUser.Group_id) {
                         item.unread++
                     }
                 }
@@ -76,7 +76,7 @@ const mutations = {
                     if (item.User_id && info.msg.toUser.User_id == item.User_id) {
                         item.message = info.msg.message
                         item.time = info.msg.time
-                        if (is) {
+                        if (is && state.msgPerson.msg_id !== info.msg.toUser.User_id) {
                             item.unread++
                         }
                     }
@@ -84,7 +84,7 @@ const mutations = {
                     if (item.User_id && info.msg.fromUser.User_id == item.User_id) {
                         item.message = info.msg.message
                         item.time = info.msg.time
-                        if (is) {
+                        if (is && state.msgPerson.msg_id !== info.msg.fromUser.User_id) {
                             item.unread++
                         }
                     }

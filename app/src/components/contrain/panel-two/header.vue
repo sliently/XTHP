@@ -35,11 +35,6 @@ export default {
           this.$store.dispatch('deleteMsg',this)
           this.$store.commit('closeRightIndex')
       }
-  },
-  watch:{
-      msgPerson(){
-          console.log(this.msgPerson)
-      }
   }
 }
 </script>

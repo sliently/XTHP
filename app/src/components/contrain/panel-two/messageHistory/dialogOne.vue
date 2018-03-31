@@ -26,6 +26,7 @@ export default {
   },
   mounted(){
     this.trigger = this.$el
+    this.windowSize()
   },
   data(){
       return {
@@ -51,6 +52,11 @@ export default {
             this.current = this.$refs.scroll.scrollHeight
             this.$store.commit('setNum')
             this.$store.dispatch('getHistory',this)
+      },
+      windowSize(){
+          window.addEventListener('resize',()=>{
+              this.scrollTo()
+          })
       }
   },
   watch:{
