@@ -1,4 +1,4 @@
-# XTHP 2.0
+# XTHP 2.1
 [![author](https://img.shields.io/badge/author-HP%E6%B5%B7%E5%B9%B3-brightgreen.svg)](https://github.com/HaipingXiaotong)
 ![node](https://img.shields.io/badge/node-v6.2.2-yellow.svg)
 ![react](https://img.shields.io/badge/vue-2.0.0+-yellow.svg)
@@ -8,10 +8,12 @@
 ### 功能
 
  1.用户：包括登录、注册、个人信息管理、群组信息管理<br>
- 2.消息：实现了群聊、私聊。包括表情图片文件发送，其中表情可以快捷输入，图片可以使用ctrl+v粘贴发送<br>
+ 2.消息：实现了群聊、私聊。包括表情图片文件发送，其中表情可以快捷输入，图片可以使用ctrl+v粘贴发送,图片预览，文件下载等<br>
  3.群组：可以修改群组信息，还可以通过链接加入群组<br>
  4.favico提醒：消息提醒<br>
- 5.屏蔽用户：实现屏蔽私聊，以及桌面消息提醒（部分浏览器支持）（更新）
+ 5.屏蔽用户：实现屏蔽私聊，以及桌面消息提醒（部分浏览器支持）（更新）<br/>
+ 6.接入机器人，和加入邮件提醒<br>
+ 7.适配pc端，移动端，pad端
 
 ### 预览
 
